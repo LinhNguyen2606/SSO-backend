@@ -7,6 +7,7 @@ import configCors from "./config/cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { configPassportLocal } from "./controller/passportController";
+import configSession from "./config/session";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -23,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //config cookie -parser
 app.use(cookieParser());
-
+configSession(app);
 //test connection db
 // connection();
 

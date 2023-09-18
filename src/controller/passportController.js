@@ -11,7 +11,7 @@ const configPassportLocal = () => {
       };
 
       let res = await loginRegisterService.handleUserLogin(rawData);
-      if (res && res === 0) {
+      if (res && res.EC === 0) {
         return cb(null, res.DT);
       } else {
         return cb(null, false, { message: res.EM });
