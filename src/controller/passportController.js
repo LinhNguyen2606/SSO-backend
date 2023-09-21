@@ -20,6 +20,14 @@ const configPassportLocal = () => {
   );
 };
 
+const handleLogOut = (req, res) => {
+  req.session.destroy(function () {
+    res.clearCookie("connect.sid");
+    res.redirect("/");
+  });
+};
+
 module.exports = {
   configPassportLocal,
+  handleLogOut,
 };
