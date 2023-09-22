@@ -8,9 +8,13 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { configPassportLocal } from "./controller/passportController";
 import configSession from "./config/session";
+import flash from "connect-flash";
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+
+//conect-flash
+app.use(flash());
 
 //config cors
 configCors(app);

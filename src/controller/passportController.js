@@ -4,7 +4,12 @@ import loginRegisterService from "../service/loginRegisterService";
 
 const configPassportLocal = () => {
   passport.use(
-    new LocalStrategy(async function verify(username, password, cb) {
+    new LocalStrategy({ passReqToCallback: true }, async function verify(
+      req,
+      username,
+      password,
+      done
+    ) {
       let rawData = {
         valueLogin: username,
         password: password,
@@ -12,9 +17,9 @@ const configPassportLocal = () => {
 
       let res = await loginRegisterService.handleUserLogin(rawData);
       if (res && res.EC === 0) {
-        return cb(null, res.DT);
+        return done(null, res.DT);
       } else {
-        return cb(null, false, { message: res.EM });
+        return done(null, false, req.flash("data", [res.EM, username, res.EC]));
       }
     })
   );
